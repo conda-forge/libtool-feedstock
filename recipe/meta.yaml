@@ -15,7 +15,7 @@ source:
     - patches/0002-apple-silicon.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
   ignore_run_exports:
     - libstdcxx-ng
@@ -23,6 +23,7 @@ build:
 
 requirements:
   build:
+    - {{ stdlib('c') }}
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - m4
