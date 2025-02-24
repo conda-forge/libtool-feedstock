@@ -3,7 +3,7 @@ About libtool-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/libtool-feedstock/blob/main/LICENSE.txt)
 
-Home: http://www.gnu.org/software/libtool/
+Home: http://www.gnu.org/software/libtool
 
 Package license: GPL-2.0-or-later
 
@@ -11,12 +11,11 @@ Summary: The GNU Portable Library Tool
 
 Development: http://git.savannah.gnu.org/cgit/libtool.git
 
-Documentation: http://www.gnu.org/software/libtool/manual/
+Documentation: http://www.gnu.org/software/libtool/manual
 
 GNU libtool is a generic library support script. Libtool hides the
 complexity of using shared libraries behind a consistent, portable
 interface.
-
 
 Current build status
 ====================
