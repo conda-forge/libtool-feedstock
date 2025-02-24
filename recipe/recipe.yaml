@@ -1,6 +1,8 @@
 context:
   name: libtool
   version: '2.5.4'
+  # WHEN UPDATING LIBTOOL, UPDATE libltdl-version (see libltdl/configure)
+  libltdl-version: '2.4.3a'
 
 recipe:
   name: ${{ name }}
@@ -23,7 +25,7 @@ build:
 outputs:
   - package:
       name: libltdl
-      version: ${{ version }}
+      version: ${{ libltdl-version }}
     build:
       script:
         file: build_libltdl.sh
