@@ -1,12 +1,14 @@
-{% set version = "2.4.7" %}
+context:
+  name: libtool
+  version: '2.5.4'
 
 package:
   name: libtool
-  version: {{ version }}
+  version: ${{ version }}
 
 source:
-  url: http://ftpmirror.gnu.org/libtool/libtool-{{ version }}.tar.gz
-  sha256: 04e96c2404ea70c590c546eba4202a4e12722c640016c12b9b2f1ce3d481e9a8
+  url: http://ftpmirror.gnu.org/libtool/libtool-${{ version }}.tar.xz
+  sha256: f81f5860666b0bc7d84baddefa60d1cb9fa6fceb2398cc3baca6afaa60266675
   patches:
     # From: https://bugs.debian.org/cgi-bin/bugreport.cgi?att=1;bug=557388;filename=link-as-needed.patch;msg=5
     # See: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=347650
@@ -15,16 +17,24 @@ source:
     - patches/0002-apple-silicon.patch
 
 build:
-  number: 1
-  skip: true  # [win]
-  ignore_run_exports_from:
-    - {{ compiler('cxx') }}
+  number: 0
+  skip: win
 
 requirements:
+  ignore_run_exports:
+    from_package:
+    - clangxx_osx-arm64
+    - clangxx_osx-64
+    - gcc_linux-64
+    - gcc_linux-aarch64
+    - gcc_linux-ppc64le
+    # https://github.com/prefix-dev/rattler-build/issues/1445
+    # TODO: replace with the following line once the issue is resolved
+    # - ${{ compiler('cxx') }}
   build:
-    - {{ stdlib('c') }}
-    - {{ compiler('c') }}
-    - {{ compiler('cxx') }}
+    - ${{ stdlib('c') }}
+    - ${{ compiler('c') }}
+    - ${{ compiler('cxx') }}
     - m4
     - help2man
     - autoconf
@@ -32,12 +42,14 @@ requirements:
     - make
     - patch
 
-test:
-  requires:
-    - {{ compiler('cxx') }}
+tests:
+  - requirements:
+      run:
+        - ${{ compiler('cxx') }}
+    script: ./run_test.sh
 
 about:
-  home: http://www.gnu.org/software/libtool/
+  homepage: http://www.gnu.org/software/libtool
   license: GPL-2.0-or-later
   license_file: COPYING
   summary: The GNU Portable Library Tool
@@ -45,8 +57,8 @@ about:
     GNU libtool is a generic library support script. Libtool hides the
     complexity of using shared libraries behind a consistent, portable
     interface.
-  doc_url: http://www.gnu.org/software/libtool/manual/
-  dev_url: http://git.savannah.gnu.org/cgit/libtool.git
+  documentation: http://www.gnu.org/software/libtool/manual
+  repository: http://git.savannah.gnu.org/cgit/libtool.git
 
 extra:
   recipe-maintainers:
