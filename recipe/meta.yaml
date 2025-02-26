@@ -1,4 +1,5 @@
 {% set version = "2.5.4" %}
+# WHEN UPDATING LIBTOOL, UPDATE libltdl_version (see libltdl/configure)
 {% set libltdl_version = "2.4.3a" %}
 
 package:
@@ -70,6 +71,8 @@ outputs:
     build:
       ignore_run_exports_from:
       - {{ compiler('cxx') }}
+      run_exports:
+        - {{ pin_subpackage('libltdl', max_pin='x.x') }}
     requirements:
       build:
         - {{ stdlib('c') }}
@@ -99,6 +102,7 @@ about:
   dev_url: http://git.savannah.gnu.org/cgit/libtool.git
 
 extra:
+  feedstock-name: libtool
   recipe-maintainers:
     - ocefpaf
     - msarahan
