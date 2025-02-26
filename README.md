@@ -26,7 +26,7 @@ About libtool
 
 Home: http://www.gnu.org/software/libtool
 
-Package license: GPL-2.0-or-later AND LGPL-2.0-or-later
+Package license: GPL-2.0-or-later
 
 Summary: The GNU Portable Library Tool
 
