@@ -1,0 +1,138 @@
+context:
+  name: libtool
+  version: '2.5.4'
+  # WHEN UPDATING LIBTOOL, UPDATE libltdl_version (see libltdl/configure)
+  libltdl_version: '2.4.3a'
+
+recipe:
+  name: ${{ name }}
+  version: ${{ version }}
+
+source:
+  url: http://ftpmirror.gnu.org/libtool/libtool-${{ version }}.tar.gz
+  sha256: da8ebb2ce4dcf46b90098daf962cffa68f4b4f62ea60f798d0ef12929ede6adf
+  patches:
+    # From: https://bugs.debian.org/cgi-bin/bugreport.cgi?att=1;bug=557388;filename=link-as-needed.patch;msg=5
+    # See: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=347650
+    # and: https://sigquit.wordpress.com/2011/02/16/why-asneeded-doesnt-work-as-expected-for-your-libraries-on-your-autotools-project/
+    - patches/0001-link-as-needed.patch
+    - patches/0002-apple-silicon.patch
+
+build:
+  number: 1
+  skip: win
+
+outputs:
+  - package:
+      name: libltdl
+      version: ${{ libltdl_version }}
+    build:
+      script:
+        file: build_libltdl.sh
+    requirements:
+      ignore_run_exports:
+        from_package:
+        - clangxx_osx-arm64
+        - clangxx_osx-64
+        - gcc_linux-64
+        - gcc_linux-aarch64
+        - gcc_linux-ppc64le
+        # https://github.com/prefix-dev/rattler-build/issues/1445
+        # TODO: replace with the following line once the issue is resolved
+        # - ${{ compiler('cxx') }}
+      build:
+        - ${{ stdlib('c') }}
+        - ${{ compiler('c') }}
+        - ${{ compiler('cxx') }}
+        - m4
+        - help2man
+        - autoconf
+        - automake
+        - make
+        - texinfo
+        - patch
+    tests:
+      - package_contents:
+          lib:
+            - libltdl
+          include:
+            - ltdl.h
+            - libltdl/lt_dlloader.h
+            - libltdl/lt_error.h
+            - libltdl/lt_system.h
+    about:
+      license: LGPL-2.0-or-later
+      license_file: libltdl/COPYING.LIB
+
+  - package:
+      name: libtool
+      version: ${{ version }}
+    build:
+      script:
+        file: build_libtool.sh
+    requirements:
+      ignore_run_exports:
+        from_package:
+        - clangxx_osx-arm64
+        - clangxx_osx-64
+        - gcc_linux-64
+        - gcc_linux-aarch64
+        - gcc_linux-ppc64le
+        # https://github.com/prefix-dev/rattler-build/issues/1445
+        # TODO: replace with the following line once the issue is resolved
+        # - ${{ compiler('cxx') }}
+      build:
+        - ${{ stdlib('c') }}
+        - ${{ compiler('c') }}
+        - ${{ compiler('cxx') }}
+        - m4
+        - help2man
+        - autoconf
+        - automake
+        - make
+        - texinfo
+        - patch
+      host:
+        - ${{ pin_subpackage('libltdl', exact=true) }}
+      run:
+        - ${{ pin_subpackage('libltdl', exact=true) }}
+    tests:
+      - requirements:
+          run:
+            - ${{ compiler('cxx') }}
+        script: ./run_test.sh
+      - package_contents:
+          bin:
+            - libtool
+            - libtoolize
+          files:
+            - share/man/man1/libtool.1
+            - share/man/man1/libtoolize.1
+    about:
+      license: GPL-2.0-or-later AND LGPL-2.0-or-later
+      license_file:
+        - COPYING
+        - libltdl/COPYING.LIB
+
+about:
+  homepage: http://www.gnu.org/software/libtool
+  license: GPL-2.0-or-later AND LGPL-2.0-or-later
+  license_file:
+    - COPYING
+    - libltdl/COPYING
+  summary: The GNU Portable Library Tool
+  description: |
+    GNU libtool is a generic library support script. Libtool hides the
+    complexity of using shared libraries behind a consistent, portable
+    interface.
+  documentation: http://www.gnu.org/software/libtool/manual
+  repository: http://git.savannah.gnu.org/cgit/libtool.git
+
+extra:
+  recipe-maintainers:
+    - ocefpaf
+    - msarahan
+    - jakirkham
+    - mingwandroid
+    - isuruf
+    - saraedum
