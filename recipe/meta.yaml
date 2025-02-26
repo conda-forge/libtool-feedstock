@@ -39,7 +39,7 @@ outputs:
     script: build_libtool.sh
     build:
       ignore_run_exports_from:
-      - {{ compiler('cxx') }}
+        - {{ compiler('cxx') }}
     requirements:
       build:
         - {{ stdlib('c') }}
@@ -61,16 +61,16 @@ outputs:
       requires:
         - {{ compiler('cxx') }}
     about:
-      license: GPL-2.0-or-later AND LGPL-2.0-or-later
+      license: GPL-2.0-or-later
       license_file:
         - COPYING
-        - libltdl/COPYING.LIB
+
   - name: libltdl
     version: {{ libltdl_version }}
     script: build_libltdl.sh
     build:
       ignore_run_exports_from:
-      - {{ compiler('cxx') }}
+        - {{ compiler('cxx') }}
       run_exports:
         - {{ pin_subpackage('libltdl', max_pin='x.x') }}
     requirements:
