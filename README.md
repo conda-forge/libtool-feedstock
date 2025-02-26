@@ -1,13 +1,30 @@
-About libtool-feedstock
+About libltdl-feedstock
 =======================
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/libtool-feedstock/blob/main/LICENSE.txt)
 
 
+About libltdl
+-------------
+
+Home: http://www.gnu.org/software/libtool
+
+Package license: LGPL-2.0-or-later
+
+Summary: The GNU Portable Library Tool
+
+Development: http://git.savannah.gnu.org/cgit/libtool.git
+
+Documentation: http://www.gnu.org/software/libtool/manual
+
+GNU libtool is a generic library support script. Libtool hides the
+complexity of using shared libraries behind a consistent, portable
+interface.
+
 About libtool
 -------------
 
-Home: http://www.gnu.org/software/libtool/
+Home: http://www.gnu.org/software/libtool
 
 Package license: GPL-2.0-or-later
 
@@ -15,19 +32,11 @@ Summary: The GNU Portable Library Tool
 
 Development: http://git.savannah.gnu.org/cgit/libtool.git
 
-Documentation: http://www.gnu.org/software/libtool/manual/
+Documentation: http://www.gnu.org/software/libtool/manual
 
 GNU libtool is a generic library support script. Libtool hides the
 complexity of using shared libraries behind a consistent, portable
 interface.
-
-
-About libtool
--------------
-
-
-
-Package license: GPL-2.0-or-later AND LGPL-2.0-or-later
 
 Current build status
 ====================
@@ -97,10 +106,10 @@ Current release info
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libltdl-green.svg)](https://anaconda.org/conda-forge/libltdl) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libltdl.svg)](https://anaconda.org/conda-forge/libltdl) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libltdl.svg)](https://anaconda.org/conda-forge/libltdl) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libltdl.svg)](https://anaconda.org/conda-forge/libltdl) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libtool-green.svg)](https://anaconda.org/conda-forge/libtool) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libtool.svg)](https://anaconda.org/conda-forge/libtool) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libtool.svg)](https://anaconda.org/conda-forge/libtool) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libtool.svg)](https://anaconda.org/conda-forge/libtool) |
 
-Installing libtool
+Installing libltdl
 ==================
 
-Installing `libtool` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+Installing `libltdl` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
 
 ```
 conda config --add channels conda-forge
@@ -186,17 +195,17 @@ Terminology
                   produce the finished article (built conda distributions)
 
 
-Updating libtool-feedstock
+Updating libltdl-feedstock
 ==========================
 
-If you would like to improve the libtool recipe or build a new
+If you would like to improve the libltdl recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
 opportunity to confirm that the changes result in a successful build. Once
 merged, the recipe will be re-built and uploaded automatically to the
 `conda-forge` channel, whereupon the built conda packages will be available for
 everybody to install and use from the `conda-forge` channel.
-Note that all branches in the conda-forge/libtool-feedstock are
+Note that all branches in the conda-forge/libltdl-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
 on branches in forks and branches in the main repository should only be used to
 build distinct package versions.
