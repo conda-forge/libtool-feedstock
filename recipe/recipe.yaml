@@ -87,6 +87,8 @@ outputs:
         # https://github.com/prefix-dev/rattler-build/issues/1445
         # TODO: replace with the following line once the issue is resolved
         # - ${{ compiler('cxx') }}
+      run_exports:
+        - ${{ pin_subpackage('libltdl', upper_bound='x.x') }}
       build:
         - ${{ stdlib('c') }}
         - ${{ compiler('c') }}
