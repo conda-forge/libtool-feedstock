@@ -85,9 +85,9 @@ outputs:
         - make
         - texinfo
         - patch
-      about:
-        license: LGPL-2.0-or-later
-        license_file: libltdl/COPYING.LIB
+    about:
+      license: LGPL-2.0-or-later
+      license_file: libltdl/COPYING.LIB
 
 about:
   home: http://www.gnu.org/software/libtool/
