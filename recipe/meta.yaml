@@ -1,12 +1,14 @@
-{% set version = "2.4.7" %}
+{% set version = "2.5.4" %}
+# WHEN UPDATING LIBTOOL, UPDATE libltdl_version (see libltdl/configure)
+{% set libltdl_version = "2.4.3a" %}
 
 package:
-  name: libtool
+  name: libtool-split
   version: {{ version }}
 
 source:
   url: http://ftpmirror.gnu.org/libtool/libtool-{{ version }}.tar.gz
-  sha256: 04e96c2404ea70c590c546eba4202a4e12722c640016c12b9b2f1ce3d481e9a8
+  sha256: da8ebb2ce4dcf46b90098daf962cffa68f4b4f62ea60f798d0ef12929ede6adf
   patches:
     # From: https://bugs.debian.org/cgi-bin/bugreport.cgi?att=1;bug=557388;filename=link-as-needed.patch;msg=5
     # See: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=347650
@@ -15,7 +17,7 @@ source:
     - patches/0002-apple-silicon.patch
 
 build:
-  number: 1
+  number: 0
   skip: true  # [win]
   ignore_run_exports_from:
     - {{ compiler('cxx') }}
@@ -32,9 +34,60 @@ requirements:
     - make
     - patch
 
-test:
-  requires:
-    - {{ compiler('cxx') }}
+outputs:
+  - name: libtool
+    script: build_libtool.sh
+    build:
+      ignore_run_exports_from:
+        - {{ compiler('cxx') }}
+    requirements:
+      build:
+        - {{ stdlib('c') }}
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - m4
+        - help2man
+        - autoconf
+        - automake
+        - make
+        - texinfo
+        - patch
+      host:
+        - {{ pin_subpackage('libltdl', exact=true) }}
+      run:
+        - {{ pin_subpackage('libltdl', exact=true) }}
+    test:
+      commands: $RECIPE_DIR/parent/run_test_libtool.sh
+      requires:
+        - {{ compiler('cxx') }}
+    about:
+      license: GPL-2.0-or-later
+      license_file:
+        - COPYING
+
+  - name: libltdl
+    version: {{ libltdl_version }}
+    script: build_libltdl.sh
+    build:
+      ignore_run_exports_from:
+        - {{ compiler('cxx') }}
+      run_exports:
+        - {{ pin_subpackage('libltdl', max_pin='x.x') }}
+    requirements:
+      build:
+        - {{ stdlib('c') }}
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - m4
+        - help2man
+        - autoconf
+        - automake
+        - make
+        - texinfo
+        - patch
+    about:
+      license: LGPL-2.0-or-later
+      license_file: libltdl/COPYING.LIB
 
 about:
   home: http://www.gnu.org/software/libtool/
@@ -49,6 +102,7 @@ about:
   dev_url: http://git.savannah.gnu.org/cgit/libtool.git
 
 extra:
+  feedstock-name: libtool
   recipe-maintainers:
     - ocefpaf
     - msarahan

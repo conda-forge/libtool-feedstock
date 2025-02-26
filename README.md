@@ -3,6 +3,10 @@ About libtool-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/libtool-feedstock/blob/main/LICENSE.txt)
 
+
+About libtool
+-------------
+
 Home: http://www.gnu.org/software/libtool/
 
 Package license: GPL-2.0-or-later
@@ -17,6 +21,13 @@ GNU libtool is a generic library support script. Libtool hides the
 complexity of using shared libraries behind a consistent, portable
 interface.
 
+
+About libtool
+-------------
+
+
+
+Package license: GPL-2.0-or-later AND LGPL-2.0-or-later
 
 Current build status
 ====================
@@ -83,6 +94,7 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libltdl-green.svg)](https://anaconda.org/conda-forge/libltdl) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libltdl.svg)](https://anaconda.org/conda-forge/libltdl) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libltdl.svg)](https://anaconda.org/conda-forge/libltdl) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libltdl.svg)](https://anaconda.org/conda-forge/libltdl) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libtool-green.svg)](https://anaconda.org/conda-forge/libtool) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libtool.svg)](https://anaconda.org/conda-forge/libtool) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libtool.svg)](https://anaconda.org/conda-forge/libtool) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libtool.svg)](https://anaconda.org/conda-forge/libtool) |
 
 Installing libtool
@@ -95,41 +107,41 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `libtool` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `libltdl, libtool` can be installed with `conda`:
 
 ```
-conda install libtool
-```
-
-or with `mamba`:
-
-```
-mamba install libtool
-```
-
-It is possible to list all of the versions of `libtool` available on your platform with `conda`:
-
-```
-conda search libtool --channel conda-forge
+conda install libltdl libtool
 ```
 
 or with `mamba`:
 
 ```
-mamba search libtool --channel conda-forge
+mamba install libltdl libtool
+```
+
+It is possible to list all of the versions of `libltdl` available on your platform with `conda`:
+
+```
+conda search libltdl --channel conda-forge
+```
+
+or with `mamba`:
+
+```
+mamba search libltdl --channel conda-forge
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search libtool --channel conda-forge
+mamba repoquery search libltdl --channel conda-forge
 
-# List packages depending on `libtool`:
-mamba repoquery whoneeds libtool --channel conda-forge
+# List packages depending on `libltdl`:
+mamba repoquery whoneeds libltdl --channel conda-forge
 
-# List dependencies of `libtool`:
-mamba repoquery depends libtool --channel conda-forge
+# List dependencies of `libltdl`:
+mamba repoquery depends libltdl --channel conda-forge
 ```
 
 
