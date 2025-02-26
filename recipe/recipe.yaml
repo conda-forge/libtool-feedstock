@@ -24,6 +24,53 @@ build:
 
 outputs:
   - package:
+      name: ${{ name }}
+      version: ${{ version }}
+    build:
+      script:
+        file: build_libtool.sh
+    requirements:
+      ignore_run_exports:
+        from_package:
+        - clangxx_osx-arm64
+        - clangxx_osx-64
+        - gcc_linux-64
+        - gcc_linux-aarch64
+        - gcc_linux-ppc64le
+        # https://github.com/prefix-dev/rattler-build/issues/1445
+        # TODO: replace with the following line once the issue is resolved
+        # - ${{ compiler('cxx') }}
+      build:
+        - ${{ stdlib('c') }}
+        - ${{ compiler('c') }}
+        - ${{ compiler('cxx') }}
+        - m4
+        - help2man
+        - autoconf
+        - automake
+        - make
+        - texinfo
+        - patch
+      host:
+        - ${{ pin_subpackage('libltdl', exact=true) }}
+      run:
+        - ${{ pin_subpackage('libltdl', exact=true) }}
+    tests:
+      - requirements:
+          run:
+            - ${{ compiler('cxx') }}
+        script: run_test_libtool.sh
+      - package_contents:
+          bin:
+            - libtool
+            - libtoolize
+          files:
+            - share/man/man1/libtool.1
+            - share/man/man1/libtoolize.1
+    about:
+      license: GPL-2.0-or-later
+      license_file: COPYING
+  - package:
       name: libltdl
       version: ${{ libltdl_version }}
     build:
@@ -63,56 +110,6 @@ outputs:
     about:
       license: LGPL-2.0-or-later
       license_file: libltdl/COPYING.LIB
-
-  - package:
-      name: libtool
-      version: ${{ version }}
-    build:
-      script:
-        file: build_libtool.sh
-    requirements:
-      ignore_run_exports:
-        from_package:
-        - clangxx_osx-arm64
-        - clangxx_osx-64
-        - gcc_linux-64
-        - gcc_linux-aarch64
-        - gcc_linux-ppc64le
-        # https://github.com/prefix-dev/rattler-build/issues/1445
-        # TODO: replace with the following line once the issue is resolved
-        # - ${{ compiler('cxx') }}
-      build:
-        - ${{ stdlib('c') }}
-        - ${{ compiler('c') }}
-        - ${{ compiler('cxx') }}
-        - m4
-        - help2man
-        - autoconf
-        - automake
-        - make
-        - texinfo
-        - patch
-      host:
-        - ${{ pin_subpackage('libltdl', exact=true) }}
-      run:
-        - ${{ pin_subpackage('libltdl', exact=true) }}
-    tests:
-      - requirements:
-          run:
-            - ${{ compiler('cxx') }}
-        script: ./run_test.sh
-      - package_contents:
-          bin:
-            - libtool
-            - libtoolize
-          files:
-            - share/man/man1/libtool.1
-            - share/man/man1/libtoolize.1
-    about:
-      license: GPL-2.0-or-later AND LGPL-2.0-or-later
-      license_file:
-        - COPYING
-        - libltdl/COPYING.LIB
 
 about:
   homepage: http://www.gnu.org/software/libtool
